@@ -27,7 +27,7 @@ const Testimonials = () => {
         {testimonials.map((testimonial, index) => (
           <div key={index} className={styles.testimonial}>
             <img src={testimonial.avatar} alt={testimonial.name} />
-            <p>"{testimonial.feedback}"</p>
+            <p>{testimonial.feedback}</p>
             <h4>{testimonial.name}</h4>
           </div>
         ))}
