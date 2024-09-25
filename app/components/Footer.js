@@ -1,4 +1,5 @@
 // components/Footer.js
+'use client';
 import styles from './Footer.module.css';
 
 const Footer = () => {
