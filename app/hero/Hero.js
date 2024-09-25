@@ -7,7 +7,7 @@ const Hero = () => {
       <div className={styles.content}>
         <h1>Encuentra los Mejores Eventos de Barbacoa</h1>
         <p>Descubre, participa y comparte experiencias en eventos de barbacoa cerca de ti.</p>
-        <a href="#events" className={styles.ctaButton}>Buscar Eventos</a>
+        <a href="/events" className={styles.ctaButton}>Buscar Eventos</a>
       </div>
     </section>
   );

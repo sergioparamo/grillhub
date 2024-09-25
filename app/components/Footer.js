@@ -3,7 +3,7 @@ import styles from './Footer.module.css';
 
 const Footer = () => {
   return (
-    <footer className={styles.footer}>
+    <footer className={styles.footer}> {}
       <div className={styles.container}>
         <p>&copy; {new Date().getFullYear()} GrillHub. Todos los derechos reservados.</p>
         <div className={styles.socials}>
