@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { Tab, Tabs } from 'react-bootstrap';
@@ -17,8 +17,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: 40.712776,
-  lng: -74.005974,
+  lat: 41.3851, // Center of Barcelona
+  lng: 2.1734,
 };
 
 const FeaturedEvents = () => {
@@ -27,11 +27,12 @@ const FeaturedEvents = () => {
   const loading = useSelector(selectLoading);
 
   useEffect(() => {
-    // Solo despachar la acción si no hay eventos en el estado
-    if (events.length === 0) {
+    if (!loading && events.length === 0) {
       dispatch(fetchEvents());
     }
-  }, [dispatch, events.length]);
+  }, [dispatch, events.length, loading]);
+  
+  
 
   return (
     <div>
@@ -58,11 +59,14 @@ const FeaturedEvents = () => {
           <div className={styles.mapContainer}>
             <LoadScript googleMapsApiKey={gmapsApiKey}>
               <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
-                {events.map((event) => (
-                  <Marker key={event.id} position={{ lat: event.lat, lng: event.lng }} />
-                ))}
+                {loading ? null : (
+                  events.map((event) => (
+                    <Marker key={event.id} position={{ lat: event.lat, lng: event.lng }} />
+                  ))
+                )}
               </GoogleMap>
             </LoadScript>
+            {loading && <Spinner />} {/* Show spinner below the map while loading */}
           </div>
         </Tab>
       </Tabs>

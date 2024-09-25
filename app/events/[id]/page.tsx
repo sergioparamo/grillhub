@@ -3,10 +3,19 @@
 import { useEffect, useState } from 'react';
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import Spinner from '@/app/components/Spinner';
+import { NextPage } from 'next';
+import Event from '../../models/Event'
 
-const EventPage = ({ params }) => {
+interface EventPageProps {
+  params: {
+    id: string;
+  };
+}
+
+const EventPage: NextPage<EventPageProps> = ({ params }) => {
   const { id } = params;
-  const [event, setEvent] = useState(null);
+  const [event, setEvent] = useState<Event | null>(null); // Use 'any' type or define a proper type if you have one
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -15,18 +24,17 @@ const EventPage = ({ params }) => {
   });
 
   useEffect(() => {
-    // Llamar a la API para obtener el evento específico
     const fetchEvent = async () => {
-      const response = await fetch(`/api/events?id=${id}`);
+      const response = await fetch(`/api/events/${id}`);
       const data = await response.json();
       setEvent(data);
-      setFormData(data || { name: '', location: '', description: '' }); // Inicializa el formulario con datos vacíos si no hay evento
+      setFormData(data || { name: '', location: '', description: '' }); // Initialize form with empty data if no event
     };
 
     fetchEvent();
   }, [id]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -34,14 +42,14 @@ const EventPage = ({ params }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Aquí puedes manejar el envío de datos si decides hacerlo más tarde
-    setIsEditing(false); // Salir del modo de edición
+    // Here you can handle form submission later
+    setIsEditing(false); // Exit edit mode
   };
 
   if (!event) {
-    return <div>Cargando...</div>; // Mostrar un mensaje de carga mientras se obtienen los datos
+    return (<div><Header /><Spinner /><Footer /></div>); // Show loading message while fetching data
   }
 
   return (
@@ -88,7 +96,7 @@ const EventPage = ({ params }) => {
           </form>
         ) : (
           <div>
-            <h1>{event.name}</h1>
+            <h1>{event.name}</h1> {/* Change 'e' to 'event' */}
             <p>Ubicación: {event.location}</p>
             <p>Descripción: {event.description}</p>
             <button onClick={() => setIsEditing(true)}>Editar Evento</button>
