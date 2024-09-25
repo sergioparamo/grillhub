@@ -1,4 +1,5 @@
 // components/Features.js
+'use client';
 import styles from './Features.module.css';
 
 const Features = () => {

@@ -1,4 +1,5 @@
 // components/Hero.js
+'use client';
 import styles from './Hero.module.css';
 
 const Hero = () => {

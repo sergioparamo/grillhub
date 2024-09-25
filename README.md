@@ -40,7 +40,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 # TODO
 
-Integrate Auth (https://pocketbase.io/)
+Integrate Auth (https://next-auth.js.org/)
 Events logic (create, edit, delete, join, unjoin)
 Improve maps functionality
 Add translation module
