@@ -1,7 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Requirements
-node 22.9.0
+node v20.17.0
 
 ## Getting Started
 
@@ -44,3 +44,6 @@ Integrate Auth (https://next-auth.js.org/)
 Events logic (create, edit, delete, join, unjoin)
 Improve maps functionality
 Add translation module
+Responsive design
+Improve Next JS Api Routes security
+Integrate analytics
