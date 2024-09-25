@@ -1,10 +1,9 @@
 // pages/index.js
 import Head from 'next/head';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import FeaturedEvents from './components/FeaturedEvents';
-import Testimonials from './components/Testimonials';
+import Hero from './hero/Hero';
+import Features from './features/Features';
+import Testimonials from './testimonials/Testimonials';
 import Footer from './components/Footer';
 
 export default function Home() {
@@ -21,11 +20,9 @@ export default function Home() {
       <main>
         <Hero />
         <Features />
-        <FeaturedEvents />
         <Testimonials />
       </main>
       <Footer />
     </div>
   );
 }
-

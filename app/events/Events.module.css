@@ -1,0 +1,23 @@
+/* FeaturedEvents.module.css */
+.mapContainer {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  margin-top: 20px; /* Space above the map */
+  margin-bottom: 20px; /* Space below the map */
+  padding: 10px; /* Space inside the border */
+  border: 2px solid #007bff; /* Border color */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #f8f9fa; /* Light background color */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.eventList { /* New class for the list */
+  list-style-type: none;
+  padding: 0;
+}
+
+.eventList li { /* Styles for list items */
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
