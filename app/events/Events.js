@@ -9,7 +9,7 @@ import Spinner from '../components/Spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEvents, selectEvents, selectLoading } from '../store/eventsSlice';
 
-const gmapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
+const gmapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 const containerStyle = {
   width: '100%',
