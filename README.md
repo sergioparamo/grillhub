@@ -47,3 +47,4 @@ Add translation module
 Responsive design
 Improve Next JS Api Routes security
 Integrate analytics
+Create different environments
