@@ -1,22 +1,23 @@
 import { NextRequest } from "next/server";
+import { database } from "../../../../lib/firebase/firebase"
+import { ref, get, child } from 'firebase/database';
 
-const events = [
-    { id: "1", name: "BBQ Party", location: "Parc de la Ciutadella", description: "A fun BBQ party in the park.", lat: 41.3884, lng: 2.1890 },
-    { id: "2", name: "Grill Fest", location: "Parc del Laberint d'Horta", description: "Join us for a grilling extravaganza.", lat: 41.4134, lng: 2.1620 },
-    { id: "3", name: "Beach BBQ", location: "Platja de la Barceloneta", description: "Enjoy a BBQ by the beach.", lat: 41.3784, lng: 2.1925 },
-  ];
-  
-  // Obtener un evento por ID
-  export async function GET(req: Request | NextRequest) {
-    const url = new URL(req.url);
-    const id = url.pathname.split('/').pop(); // Extraer el ID de la URL
-  
-    // Simular un tiempo de carga de 2 segundos
-    await new Promise(resolve => setTimeout(resolve, 1000));
-  
-    const event = events.find(event => event.id === id);
-    if (event) {
+// Obtener un evento por ID
+export async function GET(req: Request | NextRequest) {
+  const url = new URL(req.url);
+  const id = url.pathname.split('/').pop(); // Extraer el ID de la URL
+
+  const dbRef = ref(database);
+  try {
+    const snapshot = await get(child(dbRef, `events/${id}`)); // Accede a la referencia del evento específico
+    if (snapshot.exists()) {
+      const event = snapshot.val(); // Obtener el evento
       return new Response(JSON.stringify(event), { status: 200, headers: { "Content-Type": "application/json" } });
+    } else {
+      return new Response(JSON.stringify({ error: 'Evento no encontrado' }), { status: 404 });
     }
-    return new Response(JSON.stringify({ error: 'Evento no encontrado' }), { status: 404 });
-  }  
+  } catch (error) {
+    console.error(error);
+    return new Response(JSON.stringify({ error: 'Error al obtener el evento' }), { status: 500 });
+  }
+}

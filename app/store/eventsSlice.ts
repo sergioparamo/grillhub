@@ -1,6 +1,6 @@
-// Assuming you have an Event type defined
+// Definición del tipo de Evento
 interface Event {
-  id: string; // Add all relevant fields for your event
+  id: string; // Añade todos los campos relevantes para tu evento
   name: string;
   location: string;
   description: string;
@@ -9,20 +9,22 @@ interface Event {
 // eventsSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchEvents = createAsyncThunk("events/fetchEvents", async () => {
+export const fetchEvents = createAsyncThunk<Event[]>("events/fetchEvents", async () => {
   const response = await fetch("/api/events");
+  if (!response.ok) {
+    throw new Error("Failed to fetch events");
+  }
   return await response.json();
 });
 
 export const fetchEventById = createAsyncThunk<Event, string>(
   "events/fetchEventById",
   async (eventId) => {
-    return await fetch(`/api/events/${eventId}`).then(async (response) => {
-      if (!response.ok) {
-        throw new Error("Failed to fetch event");
-      }
-      return await response.json();
-    });
+    const response = await fetch(`/api/events/${eventId}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch event");
+    }
+    return await response.json();
   }
 );
 
@@ -59,12 +61,9 @@ const eventsSlice = createSlice({
   },
 });
 
-export const selectEvents = (state: { events: { events: Event[] } }) =>
-  state.events.events;
-export const selectLoading = (state: { events: { loading: boolean } }) =>
-  state.events.loading;
-export const selectCurrentEvent = (state: {
-  events: { currentEvent: Event | null };
-}) => state.events.currentEvent;
+// Selectores
+export const selectEvents = (state: { events: { events: Event[] } }) => state.events.events;
+export const selectLoading = (state: { events: { loading: boolean } }) => state.events.loading;
+export const selectCurrentEvent = (state: { events: { currentEvent: Event | null } }) => state.events.currentEvent;
 
 export default eventsSlice.reducer;
