@@ -1,0 +1,26 @@
+# Archivo netlify.toml
+
+# Configuración para producción (master o main)
+[context.production]
+  command = "npm run build"
+  publish = "build" # o el directorio de salida que estés utilizando
+  environment = { NODE_ENV = "production" }
+
+# Configuración para ramas de preproducción o staging
+[context.staging]
+  command = "npm run build-staging"
+  publish = "build-staging"
+  environment = { NODE_ENV = "staging" }
+
+# Configuración para desarrollo (dev)
+[context.dev]
+  command = "npm run build-dev"
+  publish = "build-dev"
+  environment = { NODE_ENV = "development" }
+
+# Configuración para ramas feature/*
+[context."feature/*"]
+  command = "npm run build-dev"
+  publish = "build-dev"
+  environment = { NODE_ENV = "development" }
+  url = "https://dev--thegrillhub.netlify.app/"
