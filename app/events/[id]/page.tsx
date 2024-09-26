@@ -1,4 +1,3 @@
-// app/events/[id]/page.js
 "use client"; // Asegúrate de que sea un componente de cliente
 import { useEffect, useState } from "react";
 import Header from "@/app/components/Header";
@@ -6,7 +5,7 @@ import Footer from "@/app/components/Footer";
 import Spinner from "@/app/components/Spinner";
 import { NextPage } from "next";
 import { Paper } from "@mui/material";
-import { useAppDispatch } from "../../../hooks/useDispatch"; // Use your custom dispatch hook
+import { useAppDispatch } from "../../../hooks/useDispatch"; // Usa tu hook de dispatch personalizado
 import {
   fetchEventById,
   selectCurrentEvent,
@@ -22,7 +21,7 @@ interface EventPageProps {
 
 const EventPage: NextPage<EventPageProps> = ({ params }) => {
   const { id } = params;
-  const dispatch = useAppDispatch(); // Use the typed dispatch
+  const dispatch = useAppDispatch(); // Usa el dispatch tipado
   const event = useSelector(selectCurrentEvent);
   const loading = useSelector(selectLoading);
   const [isEditing, setIsEditing] = useState(false);
@@ -33,22 +32,10 @@ const EventPage: NextPage<EventPageProps> = ({ params }) => {
   });
 
   useEffect(() => {
-    console.log('CURRENT EVENT')
-    console.log(event)
-    if (!loading && !event) {
-      dispatch(fetchEventById(id));
+    if (!loading && (!event || event.id !== id)) {
+      dispatch(fetchEventById(id)); // Llama a la API solo si no hay un evento cargado o si el ID no coincide
     }
-  }, [dispatch, id, loading]);
-
-  useEffect(() => {
-    if (event) {
-      setFormData({
-        name: event.name,
-        location: event.location,
-        description: event.description,
-      });
-    }
-  }, [event]);
+  }, [dispatch, id, loading, event]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -62,8 +49,8 @@ const EventPage: NextPage<EventPageProps> = ({ params }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Here you can handle form submission later
-    setIsEditing(false); // Exit edit mode
+    // Aquí puedes manejar la presentación del formulario más adelante
+    setIsEditing(false); // Salir del modo de edición
   };
 
   if (loading) {
@@ -77,7 +64,7 @@ const EventPage: NextPage<EventPageProps> = ({ params }) => {
         </main>
         <Footer />
       </div>
-    ); // Show loading message while fetching data
+    ); // Mostrar mensaje de carga mientras se obtienen datos
   }
 
   if (!event) {
@@ -91,7 +78,7 @@ const EventPage: NextPage<EventPageProps> = ({ params }) => {
         </main>
         <Footer />
       </div>
-    ); // Show message if the event is not found
+    ); // Mostrar mensaje si el evento no se encuentra
   }
 
   return (
@@ -141,7 +128,7 @@ const EventPage: NextPage<EventPageProps> = ({ params }) => {
             </form>
           ) : (
             <div>
-              <h1>{event.name}</h1> {/* Change 'e' to 'event' */}
+              <h1>{event.name}</h1>
               <p>Ubicación: {event.location}</p>
               <p>Descripción: {event.description}</p>
               <button onClick={() => setIsEditing(true)}>Editar Evento</button>

@@ -1,6 +1,7 @@
 import { initializeApp, getApps, FirebaseApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { Auth, getAuth } from "firebase/auth"; // Importa getAuth
+import { getDatabase } from "firebase/database"; // Importa getDatabase
 
 export const createFirebaseApp = () => {
   const clientCredentials = {
@@ -26,13 +27,17 @@ export const createFirebaseApp = () => {
   // Inicializa Firebase Authentication
   const auth = getAuth(app); // Obtiene la instancia de autenticación
 
-  return { app, auth }; // Devuelve tanto la app como la instancia de autenticación
+  // Inicializa Firebase Realtime Database
+  const database = getDatabase(app); // Obtiene la instancia de la base de datos
+
+  return { app, auth, database }; // Devuelve tanto la app, la instancia de autenticación como la base de datos
 };
 
 // Exporta la función para ser utilizada en otros módulos
 let firebaseInstance: {
   app: FirebaseApp;
   auth: Auth;
+  database: ReturnType<typeof getDatabase>; // Tipo de la instancia de la base de datos
 };
 
 export const getFirebaseApp = () => {
@@ -42,4 +47,4 @@ export const getFirebaseApp = () => {
   return firebaseInstance;
 };
 
-export const { app, auth } = getFirebaseApp(); // Exporta la app y la auth
+export const { app, auth, database } = getFirebaseApp(); // Exporta la app, la auth y la base de datos

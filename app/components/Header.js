@@ -30,15 +30,6 @@ const Header = () => {
                   <li>
                     <Link href="/events">Eventos</Link>
                   </li>
-                  <li>
-                    <Link href="#features">Características</Link>
-                  </li>
-                  <li>
-                    <Link href="#testimonials">Testimonios</Link>
-                  </li>
-                  <li>
-                    <Link href="#contact">Contacto</Link>
-                  </li>
                 </>
               ) : (
                 <>

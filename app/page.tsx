@@ -10,6 +10,7 @@ import Testimonials from "./testimonials/Testimonials";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import { logout } from "../lib/firebase/auth";
+import Spinner from "./components/Spinner";
 
 const { auth } = getFirebaseApp();
 
@@ -33,7 +34,7 @@ const Home = () => {
     }
   }, [user, loading, router]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Spinner/>;
 
   return (
     <div>
