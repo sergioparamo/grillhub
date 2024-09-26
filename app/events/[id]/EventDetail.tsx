@@ -1,5 +1,6 @@
+import Event from '../../models/Event'
 // app/events/[id]/EventDetail.js
-const EventDetail = ({ event }) => {
+const EventDetail = (event: Event) => {
     return (
       <div>
         <h1>{event.name}</h1>
