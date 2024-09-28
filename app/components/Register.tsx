@@ -3,10 +3,26 @@
 import { TextField, Button, Typography } from '@mui/material';
 import { RegisterProps } from '../interfaces/LoginProps';
 
-const Register: React.FC<RegisterProps> = ({ email, setEmail, password, setPassword, handleRegister, loading }) => {
+const Register: React.FC<RegisterProps> = ({firstName, setFirstName, lastName, setLastName, email, setEmail, password, setPassword, phone, setPhone, handleRegister, loading }) => {
     return (
         <div style={{ margin: '20px' }}>
-            <Typography  component={'span'} variant="h4">Register</Typography>
+            <Typography component={'span'} variant="h4">Register</Typography>
+            <TextField
+                label="First Name"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+            />
+            <TextField
+                label="Last Name"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+            />
             <TextField
                 label="Email"
                 variant="outlined"
@@ -23,6 +39,14 @@ const Register: React.FC<RegisterProps> = ({ email, setEmail, password, setPassw
                 margin="normal"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+            />
+            <TextField
+                label="Phone Number"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)} // Manage phone number state
             />
 
             <Button variant="contained" color="primary" onClick={handleRegister} disabled={loading}>
