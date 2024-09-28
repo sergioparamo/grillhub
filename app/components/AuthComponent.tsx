@@ -8,8 +8,11 @@ import { registerWithEmail, loginWithEmail } from '../../lib/firebase/auth';
 import { Box } from '@mui/material'; // Import Box
 
 const AuthComponent = ({ isRegistering }: { isRegistering: boolean }) => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState(''); // State for phone number
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
@@ -27,7 +30,7 @@ const AuthComponent = ({ isRegistering }: { isRegistering: boolean }) => {
 
         try {
             if (isRegistering) {
-                await registerWithEmail(email, password);
+                await registerWithEmail(firstName, lastName, email, password, phone);
                 alert('Registration successful! You can log in now.');
             } else {
                 const loggedInUser = await loginWithEmail(email, password);
@@ -42,6 +45,9 @@ const AuthComponent = ({ isRegistering }: { isRegistering: boolean }) => {
             }
             setEmail('');
             setPassword('');
+            setPhone('')
+            setFirstName('')
+            setLastName('')
         } catch (error) {
             console.error(error);
         } finally {
@@ -53,10 +59,16 @@ const AuthComponent = ({ isRegistering }: { isRegistering: boolean }) => {
         <Box mt={2}> {/* Use Box for margin top */}
             {isRegistering ? (
                 <Register
+                    firstName={firstName}
+                    setFirstName={setFirstName}
+                    lastName={lastName}
+                    setLastName={setLastName}
                     email={email}
                     setEmail={setEmail}
                     password={password}
                     setPassword={setPassword}
+                    phone={phone}
+                    setPhone={setPhone}
                     handleRegister={handleAuth}
                     loading={loading}
                 />
