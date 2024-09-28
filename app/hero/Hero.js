@@ -1,5 +1,6 @@
 // components/Hero.js
 'use client';
+import Link from "next/link";
 import styles from './Hero.module.css';
 
 const Hero = () => {
@@ -8,7 +9,12 @@ const Hero = () => {
       <div className={styles.content}>
         <h1>Encuentra los Mejores Eventos de Barbacoa</h1>
         <p>Descubre, participa y comparte experiencias en eventos de barbacoa cerca de ti.</p>
-        <a href="/events" className={styles.ctaButton}>Buscar Eventos</a>
+        <div className={styles.linkContainer}>
+        <Link href="/events" className={styles.ctaButton}>Buscar Eventos</Link>
+        </div>
+        <div className={styles.linkContainer}>
+          <Link href="/events/create" className={styles.ctaButton}>Crear Eventos</Link>
+        </div>
       </div>
     </section>
   );
