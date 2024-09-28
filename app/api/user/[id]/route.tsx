@@ -32,8 +32,8 @@ export async function PUT(request: Request, { params }: { params: { userId: stri
         await set(userRef, { ...updatedData, userId }); // Keep userId unchanged
 
         return new Response(JSON.stringify({ message: 'User updated successfully!' }), { status: 200 });
-    } catch (error: any) {
-        console.error('Error updating user:', error);
+    } catch (error) {
+        console.error('Error updating user:', (error as Error).message);
         return new Response(JSON.stringify({ error: 'Failed to update user' }), { status: 500 });
     }
 }
