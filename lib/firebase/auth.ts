@@ -1,11 +1,10 @@
 // auth.js
-import { use } from 'react';
 import { getFirebaseApp } from './firebase'; // Ensure the correct path
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const { auth } = getFirebaseApp(); // Get the auth instance
 
-export const registerWithEmail = async (firstName:string, lastName: string, email: string, password: string, phone?: string) => {
+export const registerWithEmail = async (firstName: string, lastName: string, email: string, password: string, phone?: string) => {
     try {
         // First, create the user with Firebase Authentication
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -19,7 +18,7 @@ export const registerWithEmail = async (firstName:string, lastName: string, emai
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ firstName, lastName, email, password, phone, uid}) // Send the necessary data
+            body: JSON.stringify({ firstName, lastName, email, password, phone, uid }) // Send the necessary data
         });
 
         if (!response.ok) {
@@ -27,9 +26,9 @@ export const registerWithEmail = async (firstName:string, lastName: string, emai
         }
 
         return { user, message: 'User registered successfully!' };
-    } catch (error: any) {
-        console.error('Registration error:', error);
-        throw new Error(error.message || 'Failed to register user');
+    } catch (error) {
+        console.error('Registration error:', (error as Error).message);
+        throw new Error((error as Error).message || 'Failed to register user');
     }
 };
 
