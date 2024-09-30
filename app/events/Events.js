@@ -1,14 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { LoadScript } from '@react-google-maps/api';
 import { Tab, Tabs } from 'react-bootstrap';
 import Link from 'next/link';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './Events.module.css';
 import Spinner from '../components/Spinner';
 import { Card, CardContent, CardMedia, Typography, Box } from '@mui/material';
-
-const gmapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 const FeaturedEvents = () => {
   const [events, setEvents] = useState([]);  // Estado para almacenar eventos
@@ -80,9 +77,6 @@ const FeaturedEvents = () => {
         <Tab eventKey="map" title="Map View">
           <h3>Events Map</h3>
           <div className={styles.mapContainer}>
-            <LoadScript googleMapsApiKey={gmapsApiKey}>
-              
-            </LoadScript>
             {loading && <Spinner />} {/* Muestra un spinner mientras se cargan los datos */}
           </div>
         </Tab>

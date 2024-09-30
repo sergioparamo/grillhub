@@ -49,7 +49,7 @@ const Sidebar = ({
           onClick={toggleSidebar}
           sx={{
             position: "absolute",
-            right: "-20px",
+            right: "-1px",
             top: "50%",
             transform: "translateY(-50%)",
             minWidth: "40px",
