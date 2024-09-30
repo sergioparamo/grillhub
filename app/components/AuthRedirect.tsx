@@ -1,29 +1,34 @@
-"use client"; // Asegúrate de que esta línea esté aquí
-import { useEffect, useState } from 'react';
+// components/AuthRedirect.tsx
+
+"use client"; // Ensure this is a client component
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getFirebaseApp } from '../../lib/firebase/firebase';
 
-const { auth } = getFirebaseApp(); // Obtén la instancia de autenticación
+const { auth } = getFirebaseApp(); // Get the auth instance
 
 const AuthRedirect = () => {
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
-  const [isRedirecting, setIsRedirecting] = useState(true); // Correctly declare the state variable
 
   useEffect(() => {
-    if (!loading) {
-      if (!user) {
-        router.push('/auth'); // Redirige a la página de inicio de sesión si no hay usuario autenticado
-      } else {
-        setIsRedirecting(false); // Si el usuario está autenticado, permite el renderizado
+    const checkUser = async () => {
+      if (!loading) {
+        if (!user) {
+          // If there's no user, redirect to the auth page
+          router.replace('/auth');
+        }
       }
-    }
+    };
+
+    checkUser();
   }, [user, loading, router]);
 
-  if (isRedirecting || loading) return null; // Optionally show nothing while redirecting or loading
+  // Optionally show a loading spinner or nothing while redirecting
+  if (loading) return <div>Loading...</div>; // You can replace this with your Spinner component
 
-  return null; // No renderiza nada si está en proceso de redirección
+  return null; // Render nothing if checking is done
 };
 
 export default AuthRedirect;
