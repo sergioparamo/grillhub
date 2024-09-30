@@ -11,6 +11,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchEvents = createAsyncThunk<Event[]>("events/fetchEvents", async () => {
   const response = await fetch("/api/events");
+  console.log(response);
   if (!response.ok) {
     throw new Error("Failed to fetch events");
   }
