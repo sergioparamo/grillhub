@@ -3,7 +3,7 @@ export interface User {
   lastName: string;
   email: string;
   profileImageUrl?: string; // Optional profile image
-  phone?: string; // Optional phone number
+  phone: string; // Optional phone number
   createdAt?: string; // ISO 8601 format
   updatedAt?: string; // ISO 8601 format
   eventsOrganized?: string[]; // List of event IDs organized by this user

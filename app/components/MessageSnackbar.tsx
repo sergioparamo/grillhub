@@ -7,7 +7,18 @@ import MuiAlert from '@mui/material/Alert';
 //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 // });
 
-const MessageSnackbar = ({ open, handleClose, message, severity }) => {
+// Define the interface for props
+
+export type SnackbarSeverity = "success" | "error" | "info" | "warning";
+
+interface MessageSnackbarProps {
+  open: boolean; // `open` should be a boolean
+  handleClose: () => void; // `handleClose` should be a function
+  message: React.ReactNode; // `message` can be any React node (string, element, etc.)
+  severity: SnackbarSeverity; // Specify allowed string literals for severity
+}
+
+const MessageSnackbar = ({ open, handleClose, message, severity }: MessageSnackbarProps) => {
   return (
     <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
       <MuiAlert onClose={handleClose} severity={severity}>

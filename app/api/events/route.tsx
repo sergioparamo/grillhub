@@ -37,8 +37,6 @@ export async function POST(request: Request) {
   try {
     const event = await request.json(); // Obtiene el evento del cuerpo de la solicitud
 
-    console.log(event)
-
     // Genera un ID único para el nuevo evento userId+datetime
     const newEventId = event.adminId + '' + Date.now().toString(); // Puedes cambiar esto a un método más robusto si es necesario
 

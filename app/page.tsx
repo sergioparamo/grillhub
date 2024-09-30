@@ -17,7 +17,7 @@ const Home = () => {
   useEffect(() => {
     if (!loading && !user) {
       router.push("/auth");
-    }
+    } 
   }, [user, loading, router]);
 
   if (loading) return <Spinner />;

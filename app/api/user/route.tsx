@@ -4,8 +4,7 @@ import { ref, set } from 'firebase/database';
 
 export async function POST(request: Request) {
     const user = await request.json(); // Get email and userId from the request body
-    console.log(user)
-
+    
     const { firstName, lastName, email, phone, uid } = user;
 
     try {
