@@ -1,7 +1,20 @@
-'use client';
+// providers.tsx or layout.tsx
+'use client'
 import { Provider } from "react-redux";
-import store from "./store";
+import store  from "@/app/store/store"; // Import your store and persistor
+import { ReactNode } from "react";
 
-export function Providers({ children } : { children: React.ReactNode }) {
-  return <Provider store={store}>{children}</Provider>;
+interface RootLayoutProps {
+  children: ReactNode; // Specify the type of children here
 }
+
+const Providers = ({ children }: RootLayoutProps) => {
+  return (
+    <Provider store={store}>
+      {/* Wrap the app in PersistGate and pass the persistor */}
+      {children}
+    </Provider>
+  );
+};
+
+export default Providers;
