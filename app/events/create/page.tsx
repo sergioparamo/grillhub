@@ -1,75 +1,44 @@
-// pages/events/create.js
-'use client'
-import { FormEvent, useState } from 'react';
+'use client';
 import { useRouter } from 'next/navigation';
+import EventForm from '@/app/components/EventForm';
+import { Event } from '@/app/models/Event';
+import { getFirebaseApp } from '@/lib/firebase/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
-const CreateEvent = () => {
-  const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
-  const [description, setDescription] = useState('');
-  const [lat, setLat] = useState('');
-  const [lng, setLng] = useState('');
+const CreateEventPage = () => {
+  //get auth 
+  const { auth } = getFirebaseApp()
+  const [user] = useAuthState(auth);
+  const userId = user?.uid;
   const router = useRouter();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const newEvent = {
-      name,
-      location,
-      description,
-      lat: parseFloat(lat),
-      lng: parseFloat(lng),
-    };
-
+  const handleCreate = async (newEvent: Omit<Event, 'eventId' | 'adminId' | 'createdAt'>) => {
     try {
       const response = await fetch('/api/events', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newEvent), // Enviar el nuevo evento como JSON
+        body: JSON.stringify({ ...newEvent, adminId: userId }), // Include userId as adminId
       });
 
       if (!response.ok) {
-        throw new Error('Error al crear el evento');
+        throw new Error('Failed to create event');
       }
 
       const data = await response.json();
-      router.push('/events/' + data.id); // Redirige a la página del nuevo evento
+      router.push(`/events/${data.id}`);
     } catch (error) {
-      console.error("Error al crear el evento:", error);
+      console.error(error);
     }
   };
 
-  return (
-    <div>
-      <h1>Crear Evento</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Nombre:
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-        </label>
-        <label>
-          Ubicación:
-          <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} required />
-        </label>
-        <label>
-          Descripción:
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
-        </label>
-        <label>
-          Latitud:
-          <input type="number" value={lat} onChange={(e) => setLat(e.target.value)} required />
-        </label>
-        <label>
-          Longitud:
-          <input type="number" value={lng} onChange={(e) => setLng(e.target.value)} required />
-        </label>
-        <button type="submit">Crear Evento</button>
-      </form>
-    </div>
-  );
+  // Ensure the form is rendered only if the user is authenticated
+  if (!userId) {
+    return <div>Loading...</div>; // Or redirect the user to login
+  }
+
+  return <EventForm onSubmit={handleCreate} />;
 };
 
-export default CreateEvent;
+export default CreateEventPage;
