@@ -38,13 +38,15 @@ export const registerWithEmail = async (
       eventsAttended: [],
     };
 
+    const uid = user.uid;
+
     // Llamamos a la API para guardar el usuario en la base de datos
     const response = await fetch("/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...userData }), // Enviar los datos necesarios, incluyendo el password
+      body: JSON.stringify({ userData, uid }),
     });
 
     if (!response.ok) {

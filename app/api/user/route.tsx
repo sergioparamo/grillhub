@@ -5,11 +5,11 @@ import { ref, set } from 'firebase/database';
 export async function POST(request: Request) {
     const user = await request.json(); // Get email and userId from the request body
     
-    const { firstName, lastName, email, phone, uid } = user;
+    const { firstName, lastName, email, phone } = user.userData;
 
     try {
         // Save the user in Firebase Realtime Database
-        await set(ref(database, `users/${uid}`), {
+        await set(ref(database, `users/${user.uid}`), {
             firstName,
             lastName,
             email,

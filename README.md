@@ -41,13 +41,13 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 # TODO
 
-Integrate Auth ✔️
-Events logic (create, edit, delete, join, unjoin)
-Improve maps functionality
-Add translation module
-Responsive design
-Improve Next JS Api Routes security
-Integrate analytics ✔️
-Create different environments
-Separate landing page from the content for an authenticated user ( root when no user authenticated only landing page otherwise app)
-Reuse header, sidebar and footer within all application
+- Integrate Auth ✔️
+- Events logic (create, edit, delete, join, unjoin) ✔️
+- Improve maps functionality
+- Add translation module
+- Responsive design
+- Improve Next JS Api Routes security
+- Integrate analytics ✔️
+- Create different environments
+- Separate landing page from the content for an authenticated user ( root when no user authenticated only landing page otherwise app)
+- Reuse header, sidebar and footer within all application
